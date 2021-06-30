@@ -1,14 +1,7 @@
-class var():
-    def __init__(self):
-        pass
-
 class color():
-    def __init__(self):
-        pass
-
     def get_color(self, colorname):
-        switcher = {
+        colors = {
             "BLACK" : (0,0,0),
             "WHITE" : (255,255,255),
         }
-        return switcher.get(colorname)
+        return colors.get(colorname)
