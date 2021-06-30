@@ -9,7 +9,7 @@ pygame.init()
 BGCOLOR = color().get_color("WHITE")
  
 # Assign FPS a value
-FPS = 30
+FPS = 60
 FramePerSec = pygame.time.Clock()
  
 screen = pygame.display.set_mode((500,500))
