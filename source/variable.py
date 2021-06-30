@@ -1,7 +1,7 @@
-class color():
-    def get_color(self, colorname):
-        colors = {
-            "BLACK" : (0,0,0),
-            "WHITE" : (255,255,255),
-        }
-        return colors.get(colorname)
+# color variables
+BLACK = (0,0,0)
+WHITE = (255,255,255)
+DARKSLATEGREY  = (47,79,79)
+LIGHTSLATEGREY = (119,136,153)
+DIMGREY = (105,105,105)
+GREY = (128,128,128)

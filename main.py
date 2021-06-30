@@ -4,10 +4,6 @@ from source.variable import *
 
 # Initialize program
 pygame.init()
-
-# Initialize color from variable
-color = color()
-BGCOLOR = color.get_color("WHITE")
  
 # Assign FPS a value
 FPS = 60
@@ -18,7 +14,7 @@ pygame.display.set_caption("MyGame")
  
 # Beginning Game Loop
 while True:
-    screen.fill(BGCOLOR)
+    screen.fill(LIGHTSLATEGREY)
     pygame.display.update()
     for event in pygame.event.get():
         if event.type == QUIT:
