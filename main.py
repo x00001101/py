@@ -1,8 +1,8 @@
-import pygame, sys
-from pygame import sprite
+import pygame
 from pygame.locals import *
 from source.variable import *
-from source.spritesheet import *
+from source.player import *
+
 
 # Initialize program
 pygame.init()
@@ -11,13 +11,11 @@ pygame.init()
 FPS = 60
 clock = pygame.time.Clock()
  
-screen = pygame.display.set_mode((500,500))
+screen = pygame.display.set_mode((800,600))
 pygame.display.set_caption("MyGame")
 
-# display 
-spritesheet = spritesheet(PLAYER_IMAGE[0])
-
-PLAYER_SPRITE = spritesheet.get_image(32, 32, 2)
+# load player
+player = player(10,10)
 
 # Beginning Game Loop
 def main():
@@ -25,8 +23,12 @@ def main():
     run = True
     while run:
         clock.tick(FPS)
-        screen.fill(LIGHTSLATEGREY)
-        screen.blit(PLAYER_SPRITE, (10,10))
+        screen.fill(DARKSLATEGREY)
+
+        # load player
+        player.render(screen)
+        player.player_control_handling()
+
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == QUIT:
