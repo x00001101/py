@@ -10,15 +10,19 @@ class spritesheet:
         self.last_update = pygame.time.get_ticks()
         self.is_playing = False
     
-    def load_image(self, frame, width, height, scale, colour = BLACK):
+    def load_image(self, frame, width, height, scale, flip, colour = BLACK):
+        image_width = self.image_list[frame].get_width()
+        # image_height = self.image_list[frame].get_height()
         image = pygame.Surface((width, height)).convert_alpha()
-        image.blit(self.image_list[frame], (0, 0))
+        image.blit(self.image_list[frame], (image_width//2, 0))
         image = pygame.transform.scale(image, (width * scale, height * scale))
+        if flip:
+            image = pygame.transform.flip(image, True, False) # flip vertically
         image.set_colorkey(colour)
 
         return image
 
-    def update(self, screen):
+    def update(self, screen, x, y, flip = False):
         current_update = pygame.time.get_ticks()
         if current_update - self.last_update >= self.animation_delay:
             self.frame += 1
@@ -26,10 +30,10 @@ class spritesheet:
             if self.frame >= len(self.image_list):
                 self.frame = 0
         if self.is_playing == True:
-            image = self.load_image(self.frame, 32, 32, 2)
+            image = self.load_image(self.frame, 32, 32, 2, flip)
         else:
-            image = self.load_image(0, 32, 32, 2) # static first image if anim is not play
-        screen.blit(image, (0,0))
+            image = self.load_image(0, 32, 32, 2, flip) # static first image if anim is not play
+        screen.blit(image, (x,y))
 
     def play(self, is_playing = True):
         self.is_playing = is_playing
