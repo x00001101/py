@@ -28,7 +28,7 @@ class spritesheet:
         if self.is_playing == True:
             image = self.load_image(self.frame, 32, 32, 2)
         else:
-            image = self.load_image(0, 32, 32, 2)
+            image = self.load_image(0, 32, 32, 2) # static first image if anim is not play
         screen.blit(image, (0,0))
 
     def play(self, is_playing = True):
