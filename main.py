@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from source.variable import *
 from source.player import *
+from source.object import *
 
 
 # Initialize program
@@ -16,6 +17,7 @@ pygame.display.set_caption("MyGame")
 
 # load player
 player = player(10,10)
+chest = object(120,500)
 
 # Beginning Game Loop
 def main():
@@ -26,6 +28,7 @@ def main():
         screen.fill(DARKSLATEGREY)
 
         # load player
+        chest.render(screen)
         player.render(screen)
         player.player_control_handling()
 

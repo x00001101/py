@@ -3,19 +3,21 @@ from pygame.surfarray import blit_array
 from source.variable import *
 
 class spritesheet:
-    def __init__(self, image_list):
-        self.animation_delay = 120
+    def __init__(self, image_list, anim_delay, scale = 2):
+        self.animation_delay = anim_delay
         self.image_list = image_list
         self.frame = 0
         self.last_update = pygame.time.get_ticks()
         self.is_playing = False
+        self.loop = True
+        self.scale = scale
     
-    def load_image(self, frame, width, height, scale, flip, colour = BLACK):
+    def load_image(self, frame, scale, flip, colour = BLACK):
         image_width = self.image_list[frame].get_width()
-        # image_height = self.image_list[frame].get_height()
-        image = pygame.Surface((width, height)).convert_alpha()
-        image.blit(self.image_list[frame], (image_width//2, 0))
-        image = pygame.transform.scale(image, (width * scale, height * scale))
+        image_height = self.image_list[frame].get_height()
+        image = pygame.Surface((image_width, image_height)).convert_alpha()
+        image.blit(self.image_list[frame], (0, 0))
+        image = pygame.transform.scale(image, (image_width * scale, image_height * scale))
         if flip:
             image = pygame.transform.flip(image, True, False) # flip vertically
         image.set_colorkey(colour)
@@ -28,12 +30,22 @@ class spritesheet:
             self.frame += 1
             self.last_update = current_update
             if self.frame >= len(self.image_list):
-                self.frame = 0
+                if self.loop:
+                    self.frame = 0
+                else:
+                    self.frame = len(self.image_list) - 1
         if self.is_playing == True:
-            image = self.load_image(self.frame, 32, 32, 2, flip)
+            image = self.load_image(self.frame, self.scale, flip)
         else:
-            image = self.load_image(0, 32, 32, 2, flip) # static first image if anim is not play
+            image = self.load_image(0, self.scale, flip) # static first image if anim is not play
         screen.blit(image, (x,y))
 
-    def play(self, is_playing = True):
+    def play(self, is_playing = True, loop = True):
         self.is_playing = is_playing
+        self.loop = loop
+    
+    def get_width(self):
+        return self.image_list[0].get_width() * self.scale
+
+    def get_height(self):
+        return self.image_list[0].get_height() * self.scale
